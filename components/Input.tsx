@@ -4,7 +4,7 @@ interface Inputprops{
    type?: string;
    disabled?: boolean;
    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-   label?: string;
+   
 }
 
 const Input:React.FC<Inputprops> = ({

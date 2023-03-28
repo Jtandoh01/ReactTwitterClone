@@ -101,6 +101,7 @@ const Model:React.FC<ModelProps> = (  {
                                                 {title}
                                           </h3>
                                           <button
+                                                onClick={handleClose}                                           
                                                 className="
                                                       p-1 
                                                       ml-auto
@@ -109,7 +110,7 @@ const Model:React.FC<ModelProps> = (  {
                                                       hover:opacity-70
                                                       transition
                                                 "
-                                                onClick={handleClose}
+                                                
                                           >
                                                 <AiOutlineClose size={20}/>
 
@@ -121,7 +122,14 @@ const Model:React.FC<ModelProps> = (  {
                                     </div>
                                     {/*footer*/}
                                     <div>
-                                          <Button disabled={disabled} label={actionLabel} secondary fullWidth large onClick={handleSubmit} />
+                                          <Button 
+                                                disabled={disabled} 
+                                                label={actionLabel} 
+                                                secondary 
+                                                fullWidth 
+                                                large 
+                                                onClick={handleSubmit} 
+                                          />
                                           {footer}
                                     </div>
                               </div >

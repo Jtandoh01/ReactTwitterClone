@@ -9,9 +9,7 @@ const SideBarTweetButton = () => {
   const onClick = useCallback(()=>{
       loginModel.onOpen();
 
-    },[loginModel]);
-  
-  
+    },[loginModel]); 
   return (
     <div onClick={onClick}>
             <div className="
@@ -45,6 +43,7 @@ const SideBarTweetButton = () => {
                   hover:bg-opacity-90
                   cursor-pointer
                   transition
+                  
 
 
             ">
@@ -64,4 +63,4 @@ const SideBarTweetButton = () => {
   )
 }
 
-export default SideBarTweetButton
+export default SideBarTweetButton;

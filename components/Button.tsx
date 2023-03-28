@@ -1,6 +1,6 @@
 
 interface ButtonProps{
-   label: string;
+  label: string;
   secondary?: boolean;
   fullWidth?: boolean;
   large?: boolean;
@@ -54,4 +54,4 @@ const Button: React.FC<ButtonProps> = ({
       )
 }
 
-export default Button
+export default Button;

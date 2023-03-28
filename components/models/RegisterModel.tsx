@@ -1,18 +1,26 @@
+
+import axios from 'axios';
+import { useCallback, useState } from "react";
+import { toast } from 'react-hot-toast';
+import { signIn } from 'next-auth/react';
+
+
 import useLoginModel from "@/hooks/useLoginModel";
 import useRegisterModel from "@/hooks/useRegisterModel";
-import { useCallback, useState } from "react";
+
+
 import Input from "../Input";
 import Model from "../Model";
 
 
 const RegisterModel = () => {
+  const registerModel = useRegisterModel(); 
   const loginModel= useLoginModel();
-  const registerModel = useRegisterModel();
-  
+
   const [email, setEmail]= useState('');
   const [password, setPassword]= useState('');
   const [name, setName]= useState('');
-  const [userName, setUserName]= useState('');
+  const [username, setUserName]= useState('');
   const [isLoading, setIsLoading]= useState(false);
   const onToggle = useCallback(()=>{
    if(isLoading){
@@ -28,19 +36,33 @@ const RegisterModel = () => {
       try{
          setIsLoading(true);
 
-          //TODO ADD REGISTER LOG IN
+         //TODO ADD REGISTER & LOG IN
+         await axios.post('/api/register', {
+            email,
+            username,
+            name,
+            password,
+         });
 
-         registerModel.onClose();
+         toast.success('Account created. Congrats!!');
+
+         signIn('credentials', {
+            email,
+            password
+         })
+
+         registerModel.onClose();     
 
       }
       catch(error){
          console.log(error);
+         toast.error('Opps! Something went wrong! ');
       }
       finally{
          setIsLoading(false);
       }
 
-   }, [registerModel]);
+   }, [registerModel, email, username, name, password]);
 
 
 
@@ -56,6 +78,7 @@ const RegisterModel = () => {
          />
          <Input
             placeholder="Email"
+            type='email'
             onChange={(e)=> setEmail (e.target.value)}
             value= {email}
             disabled= {isLoading}
@@ -65,13 +88,14 @@ const RegisterModel = () => {
          <Input
             placeholder="Username"
             onChange={(e)=> setUserName (e.target.value)}
-            value= {userName}
+            value= {username}
             disabled= {isLoading}
 
 
          />
          <Input
             placeholder="Password"
+            type='password'
             onChange={(e)=> setPassword (e.target.value)}
             value= {password}
             disabled= {isLoading}
@@ -80,7 +104,6 @@ const RegisterModel = () => {
          />
       </div>
   )
-
 
   const footerContent = (
       <div className="text-neutral-400 text-center mt-4">
@@ -92,11 +115,9 @@ const RegisterModel = () => {
                cursor-pointer 
                text-white 
                hover:underline
-            "
-            
+            "         
             >
-               Login
-
+                Login
             </span>
          </p>
       </div>

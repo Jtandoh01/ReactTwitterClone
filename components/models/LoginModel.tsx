@@ -3,6 +3,8 @@ import { useCallback, useState } from "react";
 import Input from "../Input";
 import Model from "../Model";
 import useRegisterModel from "@/hooks/useRegisterModel";
+import { signIn } from "next-auth/react";
+
 
 
 const LoginModel = () => {
@@ -27,7 +29,10 @@ const LoginModel = () => {
       try{
          setIsLoading(true);
 
-          //TODO ADD LOG IN
+          await signIn('credentials', {
+            email,
+            password
+          })
 
          loginModel.onClose();
 
@@ -39,7 +44,7 @@ const LoginModel = () => {
          setIsLoading(false);
       }
 
-   }, [loginModel]);
+   }, [loginModel,email, password]);
 
 
 
@@ -47,6 +52,7 @@ const LoginModel = () => {
       <div className="flex flex-col gap-4">
          <Input
             placeholder="Email"
+            type="email"
             onChange={(e)=> setEmail (e.target.value)}
             value= {email}
             disabled= {isLoading}
@@ -55,6 +61,7 @@ const LoginModel = () => {
          />
          <Input
             placeholder="Password"
+            type="password"
             onChange={(e)=> setPassword (e.target.value)}
             value= {password}
             disabled= {isLoading}
@@ -74,11 +81,9 @@ const LoginModel = () => {
             cursor-pointer 
             text-white 
             hover:underline
-         "
-         
+         "        
          >
            Create account
-
          </span>
       </p>
    </div>
@@ -95,9 +100,7 @@ const LoginModel = () => {
          footer={footerContent}
 
       />
-   );
-
-   
+   );   
 }
 
 export default LoginModel;

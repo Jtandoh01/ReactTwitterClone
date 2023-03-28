@@ -27,4 +27,4 @@ const SideBarLogo = () => {
       )
 }
 
-export default SideBarLogo
+export default SideBarLogo;
